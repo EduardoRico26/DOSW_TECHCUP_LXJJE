@@ -5,7 +5,7 @@
 
 - Juan David Roa Hernández
 
-- Juan David Moreno d'Aleman
+- Juan David Moreno D'Aleman
 
 - Karol Ximena Rodriguez Reyes
 
