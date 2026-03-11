@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+
 import java.time.LocalDate;
 
 /**
@@ -46,7 +47,5 @@ public class AppTest{
         assertEquals(date, a.getUltimaMod());
     }
     @Test
-    void testCodificadorPassword(){
-
-    }
+    void
 }

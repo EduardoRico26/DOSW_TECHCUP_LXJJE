@@ -20,6 +20,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.jupiter.version>5.10.2</junit.jupiter.version>
+    <java.version>17</java.version>
   </properties>
 
   <dependencies>
@@ -37,8 +38,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
   </dependencies>
+
 
   <build>
     <plugins>
@@ -56,5 +62,6 @@
       </plugin>
     </plugins>
   </build>
+
 
 </project>
