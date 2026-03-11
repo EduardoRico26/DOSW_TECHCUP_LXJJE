@@ -47,5 +47,45 @@ public class AppTest{
         assertEquals(date, a.getUltimaMod());
     }
     @Test
-    void
+    void testBuscarUsuarioPorCorreo(){
+        Usuario u = new Usuario("juan.roa-h@mail.escuelaing.edu.co","passwordcifrado123","Juan David", "Roa Hernandez", Rol.ESTUDIANTE, LocalDate.of(2005,3,22), Programa.INGENIERIA_SISTEMAS);
+        ServicioUsuario su = new ServicioUsuario();
+        //falta setear repo usuario
+        Usuario busqueda = su.buscarUsuarioporEmail("juan.roa-h@mail.escuelaing.edu.co");
+        assertEquals(u, busqueda);
+    }
+    @Test
+    void testBuscarUsuarioPorIdentifiacion(){
+        Usuario u = new Usuario("juan.roa-h@mail.escuelaing.edu.co","passwordcifrado123","Juan David", "Roa Hernandez", Rol.ESTUDIANTE, LocalDate.of(2005,3,22), Programa.INGENIERIA_SISTEMAS);
+        u.setIdentifiacion(TipoId.CC, "123456789");
+        ServicioUsuario su = new ServicioUsuario();
+        //falta setear repo usuario
+        Usuario busqueda = su.buscarUsuarioPorIdentificacion("123456789");
+        assertEquals(u, busqueda);
+    }
+    @Test
+    void testCrearPerfilDeportivo(){
+        PerfilDeportivo pd = new PerfilDeportivo(Posicion.PORTERO, "1");
+        assertEquals("1", pd.getDorsalPredefinida());
+        assertEquals(Posicion.PORTERO, pd.getPosicionPredefinida());
+    }
+    @Test
+    void testObtenerPerfilDeportivoPorCorreoUsuario(){
+        Usuario u = new Usuario("juan.roa-h@mail.escuelaing.edu.co","passwordcifrado123","Juan David", "Roa Hernandez", Rol.ESTUDIANTE, LocalDate.of(2005,3,22), Programa.INGENIERIA_SISTEMAS);
+        PerfilDeportivo pd = new PerfilDeportivo(Posicion.PORTERO, "1");
+        u.setPerfilDeportivo(pd);
+        ServicioUsuario su = new ServicioUsuario();
+        PerfilDeportivo pdbusqueda = su.buscarPerfilDeportivoPorUsuario("juan.roa-h@mail.escuelaing.edu.co");
+        assertEquals(pd, pdbusqueda);
+    }
+    @Test
+    void testObtenerPerfilDeportivoPorUsuario(){
+        Usuario u = new Usuario("juan.roa-h@mail.escuelaing.edu.co","passwordcifrado123","Juan David", "Roa Hernandez", Rol.ESTUDIANTE, LocalDate.of(2005,3,22), Programa.INGENIERIA_SISTEMAS);
+        PerfilDeportivo pd = new PerfilDeportivo(Posicion.PORTERO, "1");
+        u.setPerfilDeportivo(pd);
+        ServicioUsuario su = new ServicioUsuario();
+        PerfilDeportivo pdbusqueda = su.buscarPerfilDeportivoPorUsuario(u);
+        assertEquals(pd, pdbusqueda);
+    }
+
 }
