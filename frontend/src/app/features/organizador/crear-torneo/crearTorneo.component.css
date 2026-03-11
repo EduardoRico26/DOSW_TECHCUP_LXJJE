@@ -139,7 +139,7 @@ body{
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #8ca0b8;
+  color: #ffffff;
   margin-bottom: 16px;
   text-align: center;
 }
@@ -150,11 +150,18 @@ body{
   border-bottom: 1px solid #1e3558;
   font-size: 0.85rem;
 }
+.res-lbl {
+  color: #a0b4c8 !important;
+}
 
+.res-val {
+  color: #00e5a0 !important;
+  font-weight: 600;
+}
 .resumen-note {
   margin-top: 14px;
   font-size: 0.75rem;
-  color: #8ca0b8;
+  color: #a0b4c8;
   text-align: center;
   line-height: 1.5;
 }

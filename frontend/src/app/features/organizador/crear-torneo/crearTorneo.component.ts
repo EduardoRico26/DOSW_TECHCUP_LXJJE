@@ -8,7 +8,7 @@ interface TorneoForm {
   costoInscripcion: number | null;
   fechaInicio: string;
   fechaFin: string;
-  estado:  'Activo' | 'En proceso' | 'Finalizado';
+  estado:  'Borrador' | 'Activo' | 'En proceso' | 'Finalizado';
   cantidadEquipos: number | null;
   faseEliminatoria: boolean;
   jugadoresMin: number | null;
@@ -37,9 +37,9 @@ export class CrearTorneoComponent {
     estado: 'Borrador',
     cantidadEquipos: null,
     faseEliminatoria: true,
-    jugadoresMin: 7,
-    jugadoresMax: 12,
-    jugadoresEnCancha: 7,
+    jugadoresMin: null,
+    jugadoresMax: null,
+    jugadoresEnCancha: null,
   };
 
   canContinue(): boolean {
