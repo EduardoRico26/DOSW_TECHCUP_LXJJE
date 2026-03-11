@@ -11,6 +11,11 @@ public class Archivo {
     private String mime;
     private LocalDate ultimaMod;
     public Archivo() {}
+    public Archivo(byte[] bytes, String mime, LocalDate ultimaMod) {
+        this.bytes = bytes;
+        this.mime = mime;
+        this.ultimaMod = ultimaMod;
+    }
     public Archivo(byte[] bytes, String mime) {
         this.bytes = bytes;
         this.mime = mime;
