@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
+  <title>Title</title>
+  <link rel ="stylesheet" href="crearTorneo.component.css">
+</head>
+<body>
+  <div class="mobile-shell">
+
+    <!-- Título -->
+    <h2 class = "page-title">Crear Torneo</h2>
+    <p class="page-sub"> Paso {{ step() }}: {{ stepLabels[step() - 1] }}</p>
+
+    <!-- Indicador de pasos -->
+    <div class="stepper" >
+      @for (s of [1,2,3]; track s) {
+      <div class="step-dot"
+           [class.active]="step() >= s"
+           [class.current]="step() === s">
+        {{ s }}
+      </div>
+      @if (s < 3) {
+      <div class="step-line" [class.done]="step() > s"></div>
+      }
+      }
+    </div>
+
+    <!-- PASO 1: Información general -->
+    @if (step() === 1) {
+    <div class="form-section">
+      <div class="tc-field">
+        <label class="tc-label">Nombre del torneo:</label>
+        <input class="tc-input"
+               [(ngModel)]="form.nombre"/>
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">Costo Inscripción:</label>
+        <input class="tc-input"
+               type="number"
+               [(ngModel)]="form.costoInscripcion"/>
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">Fecha Inicio:</label>
+        <input class="tc-input" type="date" [(ngModel)]="form.fechaInicio" />
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">Fecha Fin:</label>
+        <input class="tc-input" type="date" [(ngModel)]="form.fechaFin" />
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">Estado:</label>
+        <div class="select-wrapper">
+          <div class="tc-input select-display" (click)="toggleDropdown()">
+            {{ form.estado }}
+            <span class="arrow">{{ showDropdown() ? '∧' : '∨' }}</span>
+          </div>
+          @if (showDropdown()) {
+          <div class="dropdown">
+            @for (opt of estadoOpts; track opt) {
+            <div class="dropdown-item"
+                 [class.selected]="form.estado === opt"
+                 (click)="selectEstado(opt)">
+              {{ opt }}
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- PASO 2: Configuración de equipos -->
+    @if (step() === 2) {
+    <div class="form-section">
+
+      <div class="tc-field">
+        <label class="tc-label">Cantidad de equipos:</label>
+        <input class="tc-input"
+               type="number"
+               [(ngModel)]="form.cantidadEquipos"
+                />
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">¿Fase eliminatoria?</label>
+        <div class="toggle-row">
+          <button class="toggle-btn"
+                  [class.toggle-active]="form.faseEliminatoria"
+                  (click)="form.faseEliminatoria = true">Sí</button>
+          <button class="toggle-btn"
+                  [class.toggle-active]="!form.faseEliminatoria"
+                  (click)="form.faseEliminatoria = false">No</button>
+        </div>
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">Jugadores mínimo:</label>
+        <input class="tc-input"
+               type="number"
+               [(ngModel)]="form.jugadoresMin"
+               />
+      </div>
+
+      <div class="tc-field">
+        <label class="tc-label">Jugadores máximo:</label>
+        <input class="tc-input"
+               type="number"
+               [(ngModel)]="form.jugadoresMax"
+                />
+      </div>
+
+    <div class="tc-field">
+      <label class="tc-label">Jugadores en cancha:</label>
+      <input class="tc-input"
+             type="number"
+             [(ngModel)]="form.jugadoresEnCancha"
+              />
+    </div>
+
+  </div>
+  }
+
+  <!-- PASO 3: Resumen y confirmación -->
+  @if (step() === 3) {
+  <div class="resumen-card">
+    <h3 class="resumen-title">RESUMEN DEL TORNEO</h3>
+
+    <div class="resumen-row">
+      <span class="res-lbl">Nombre del torneo</span>
+      <span class="res-val">{{ form.nombre || '—' }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Costo Inscripción</span>
+      <span class="res-val">{{ form.costoInscripcion ? ('$' + form.costoInscripcion) : '—' }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Fecha Inicio</span>
+      <span class="res-val">{{ form.fechaInicio || '—' }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Fecha Fin</span>
+      <span class="res-val">{{ form.fechaFin || '—' }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Estado</span>
+      <span class="res-val">{{ form.estado }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Cantidad de equipos</span>
+      <span class="res-val">{{ form.cantidadEquipos ?? '—' }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Jugadores (Min – Max)</span>
+      <span class="res-val">{{ form.jugadoresMin }} – {{ form.jugadoresMax }}</span>
+    </div>
+    <div class="resumen-row">
+      <span class="res-lbl">Jugadores en cancha</span>
+      <span class="res-val">{{ form.jugadoresEnCancha ?? '—' }}</span>
+    </div>
+
+    <p class="resumen-note">
+      Revisa la información antes de confirmar. Una vez creado, podrás
+      editar los detalles desde la configuración del torneo.
+    </p>
+  </div>
+  }
+
+  <!-- Botones navegación -->
+  <div class="nav-btns">
+    <button class="btn-secondary" (click)="back()">Atrás</button>
+    @if (step() < 3) {
+    <button class="btn-primary"
+            (click)="next()"
+            [disabled]="!canContinue()">
+      Siguiente
+    </button>
+    } @else {
+    <button class="btn-primary" (click)="confirmar()">
+      Confirmar
+    </button>
+    }
+  </div>
+
+</div>
+
+</body>
+</html>

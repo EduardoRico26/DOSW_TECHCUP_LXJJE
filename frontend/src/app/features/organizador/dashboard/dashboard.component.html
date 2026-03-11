@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
+  <title>Title</title>
+  <link rel ="stylesheet" href="dashboard.component.css">
+</head>
+<body>
+  <div class="mobile-shell">
+
+    <!-- Header -->
+    <div class="header">
+      <span class="flecha">←</span>
+      <h2 class="bienvenido">¡Bienvenido, Eric!</h2>
+    </div>
+
+    <!-- Si NO hay torneos -->
+    @if (torneos().length === 0) {
+    <div class="empty-state"><img src="/assets/silbato.png" class="silbato-img"/>
+      <div class="silbato">
+      </div>
+      <h3 class="empty-title">No Hay torneos activos</h3>
+      <p class="empty-sub">Aun no tienes torneos. Crea y organiza tu primer torneo</p>
+    </div>
+
+    } @else {
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card" [class.stat-active]="activeTab() === 'Todos'"
+           (click)="setTab('Todos')">
+        <span class="stat-num">{{ stats.total }}</span>
+        <span class="stat-lbl">Torneo</span>
+      </div>
+      <div class="stat-card" [class.stat-active]="activeTab() === 'Activos'"
+           (click)="setTab('Activos')">
+        <span class="stat-num">{{ stats.activos }}</span>
+        <span class="stat-lbl">Torneo</span>
+      </div>
+      <div class="stat-card" [class.stat-active]="activeTab() === 'Finalizados'"
+           (click)="setTab('Finalizados')">
+        <span class="stat-num">{{ stats.finalizados }}</span>
+        <span class="stat-lbl">Torneos</span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      @for (tab of tabs; track tab) {
+      <button class="tab-btn"
+              [class.tab-active]="activeTab() === tab"
+              (click)="setTab(tab)">
+        {{ tab }}
+      </button>
+      }
+    </div>
+
+    <!-- Lista torneos -->
+    <div class="torneos-list">
+      @for (torneo of filtrados; track torneo.id) {
+      <div class="torneo-card">
+        <div class="torneo-header">
+          <span class="torneo-nombre">{{ torneo.nombre }}</span>
+          <span class="badge badge-active">{{ torneo.estado }}</span>
+        </div>
+        <p class="torneo-fechas">{{ torneo.fechaInicio }} – {{ torneo.fechaFin }}</p>
+        <div class="torneo-meta">
+          <span class="meta-lbl">Equipos inscritos</span>
+          <span class="meta-val">{{ torneo.equiposInscritos }}/{{ torneo.equiposTotal }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill"
+               [style.width.%]="(torneo.equiposInscritos / torneo.equiposTotal) * 100">
+          </div>
+        </div>
+        <div class="torneo-footer">
+          <span class="torneo-costo">${{ torneo.costoPorEquipo }} / equipo</span>
+          <span class="ver-detalle">Ver detalles →</span>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Botón crear -->
+    <button class="btn-crear" (click)="irACrear()">+ Crear torneo</button>
+
+  </div>
+</body>
+</html>
